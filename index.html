@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Developer List</title>
+</head>
+<body style="background: black;">
+    <style>
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .title {
+            height: 120px;
+            line-height: 120px;
+            background: linear-gradient(0.6turn, #3f87a6, #ebf8e1, #f69d3c);
+            text-align: center;
+            font-size: 40px;
+            color: darkblue;
+        }
+        .white-space{
+            height: 40px;
+        }
+        #list>ul {
+            margin: auto;
+            padding: auto;
+            display: grid;
+            grid-template-columns: auto auto;
+            row-gap: 40px;
+            column-gap: 40px;
+        }
+        #list>ul>li {
+            list-style: none;
+            margin: auto;
+            padding: 0;
+
+        }
+        .card {
+            width: 450px;
+            height: 200px;
+            background: linear-gradient(0.1turn, #afe7ff, #010636, #e7c9a9);
+            border-radius: 10px;
+        }
+        .name {
+            text-align: left;
+            font-size: 25px;
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: white;
+        }
+        .dev {
+            rotate: -20deg;
+            text-align: center;
+            font-size: 25px;
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: white;
+        }
+        .phone {
+            text-align: right;
+            font-size: 15px;
+            padding-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: white;
+        }
+        .trail {
+            height: 80px;
+            line-height: 80px;
+            background: linear-gradient(0.6turn, #3f87a6, #ebf8e1, #f69d3c);
+            text-align: center;
+            font-size: 25px;
+            color: darkblue;
+        }
+    </style>
+    <div class="container">
+        <div class="title">
+            Developer List
+        </div>
+        <div class="white-space"></div>
+        <div id="list">
+            <ul id="put"></ul>
+        </div>
+        <div class="white-space"></div>
+        <div class="trail">
+            Test By Arkar Mann Aung
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script>
+        $(document).ready(function (){
+            function getEle(name,dev,phone){
+                var element = $('<li>').append(
+                    $('<div>').attr('class','card').append(
+                        $('<div>').attr('class','name').html(name),
+                        $('<div>').attr('class','dev').html(dev),
+                        $('<div>').attr('class','phone').html(phone)
+                    )
+                );
+                return element;
+            };
+            var baseUrl = 'https://arkarmannaung.github.io/';
+            $.get(baseUrl,function (data){
+                var devList = JSON.parse(data);
+                devList.forEach(e => {
+                    var temp = getEle(e.name,e.username,e.email);
+                    $('#put').append(temp);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
