@@ -7,10 +7,12 @@
 <body style="background: black;">
     <style>
         .container {
+            position: absolute;
             width: 80%;
             margin: auto;
         }
         .title {
+            display: none;
             height: 120px;
             line-height: 120px;
             background: linear-gradient(0.6turn, #3f87a6, #ebf8e1, #f69d3c);
@@ -64,6 +66,7 @@
             color: white;
         }
         .trail {
+            display: none;
             height: 80px;
             line-height: 80px;
             background: linear-gradient(0.6turn, #3f87a6, #ebf8e1, #f69d3c);
@@ -72,24 +75,106 @@
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
         }
+        .solor{
+            position: absolute;
+        }
+        .sun{
+            position: relative;
+            /* width: 98px; */
+            /* height: 100px; */
+            /* background: white; */
+            /* border-radius: 50px; */
+            /* border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px; */
+            /* shape-outside: linear-gradient(45deg, rgba(161, 118, 118, 0) 150px, red 150px); */
+            /* box-shadow: 15px 15px 70px rgb(255, 175, 166); */
+            /* background: radial-gradient(#f76464,#993030,#4b1d1d,#381515); */
+            /* background: radial-gradient(#f76464,#993030,#381515,#8f7f7f) */
+        }
+        .earth{
+            position: absolute;
+            /* width: 48px;
+            height: 50px; */
+            background: white;
+            border-radius: 25px;
+            rotate: -23deg;
+            background-position: center;
+            background-image: url('earth.png');
+            background-size: cover;
+            z-index: 1;
+            /* border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px; */
+            /* shape-outside: linear-gradient(45deg, rgba(161, 118, 118, 0) 150px, red 150px); */
+            /* box-shadow: 15px 15px 70px rgb(255, 175, 166); */
+            /* background: radial-gradient(#f76464,#993030,#4b1d1d,#381515); */
+            /* background: radial-gradient(#f76464,#993030,#381515,#8f7f7f) */
+        }
     </style>
+
     <div class="container">
         <div class="title">
             Developer List
         </div>
         <div class="white-space"></div>
         <div id="list">
-            <ul id="put"></ul>
+            <ul id="put" style="display: none;"></ul>
         </div>
         <div class="white-space"></div>
         <div class="trail">
             Test By Arkar Mann Aung
         </div>
     </div>
+
+    <div class="solor">
+        <div class="earth"></div>
+        <div class="sun"></div>
+    </div>
+
     <script src="js/jquery.js"></script>
     <script>
         $(document).ready(function (){
+            let sleep = ms => new Promise(_=>setTimeout(_,ms));
             var prev = window.innerWidth;
+            // loading
+            var count = 0;
+            rotate();
+            async function rotate(){
+                while(count<121){
+                    var sun_w=98;
+                    var sun_h=100;
+                    var earth_w=48;
+                    var earth_h=50;
+                    var radius = sun_h*1.5;
+                    var pi = 22/7;
+                    var earth_xx = (((window.innerWidth/2)-(sun_w/2))+24) + (radius * Math.cos((count*6)*(pi/180)));
+                    var earth_yy = (((window.innerHeight/2)-(sun_h/2))+25) + (radius * Math.sin((count*6)*(pi/180)));
+                    $('.sun').css({
+                        // 'position':'relative',
+                        'width': `${sun_w}px`,
+                        'height': `${sun_h}px`,
+                        'border-radius': '50px',
+                        'box-shadow': '15px 15px 70px rgb(255, 175, 166)',
+                        'background': 'radial-gradient(#f76464,#993030,#4b1d1d,#381515)',
+                        'left':`${(window.innerWidth/2)-(sun_w/2)}px`,
+                        'top':`${(window.innerHeight/2)-(sun_h/2)}px`
+                    });
+                    $('.earth').css({
+                        'width': `${earth_w}px`,
+                        'height': `${earth_h}px`,
+                        'left':`${earth_xx}px`,
+                        'top':`${earth_yy}px`,
+                        'rotate': `${(count*6)}deg`,
+                    });
+                    count++;
+                    await sleep(50);
+                }
+            }
+            // loading
+
             setInterval(function(){
                 var y = window.innerWidth;
                 if(prev!=y){         
@@ -129,13 +214,53 @@
                 return element;
             };
             var baseUrl = 'https://arkarmannaung.github.io/';
-            $.get(baseUrl,function (data){
+            $.get(baseUrl, function (data){
+                render(data,3000);
+            });
+            async function render(data,ms) {
+                // await sleep(ms);
+                while(count<121){
+                    var sun_w=98;
+                    var sun_h=100;
+                    var earth_w=48;
+                    var earth_h=50;
+                    var radius = sun_h*1.5;
+                    var pi = 22/7;
+                    var earth_xx = (((window.innerWidth/2)-(sun_w/2))+24) + (radius * Math.cos((count*6)*(pi/180)));
+                    var earth_yy = (((window.innerHeight/2)-(sun_h/2))+25) + (radius * Math.sin((count*6)*(pi/180)));
+                    $('.sun').css({
+                        // 'position':'relative',
+                        'width': `${sun_w}px`,
+                        'height': `${sun_h}px`,
+                        'border-radius': '50px',
+                        'box-shadow': '15px 15px 70px rgb(255, 175, 166)',
+                        'background': 'radial-gradient(#f76464,#993030,#4b1d1d,#381515)',
+                        'left':`${(window.innerWidth/2)-(sun_w/2)}px`,
+                        'top':`${(window.innerHeight/2)-(sun_h/2)}px`
+                    });
+                    $('.earth').css({
+                        'width': `${earth_w}px`,
+                        'height': `${earth_h}px`,
+                        'left':`${earth_xx}px`,
+                        'top':`${earth_yy}px`,
+                        'rotate': `${(count*6)}deg`,
+                    });
+                    count++;
+                    await sleep(100);
+                }
+                $('.sun').hide;
+                $('.earth').hide;
+                $(".container").css('position','relative')
+                // $('.title').css('display','block').slideDown;
+                $('.title').show(1000);
                 var devList = JSON.parse(data);
                 devList.forEach(e => {
                     var temp = getEle(e.name,e.username,e.email);
                     $('#put').append(temp);
                 });
-            });
+                $('#put').show(2000);
+                $('.trail').show(1000);
+            }
         });
     </script>
 </body>
